@@ -9,7 +9,7 @@
                         LOGIN
                     </h1>
                     <div class="card-body">
-                        <ValidationObserver ref="observer" v-slot="{ invalid }">
+                        <ValidationObserver ref="observer">
                             <form @submit.prevent="onSubmit()">
                                 <ValidationProvider
                                     v-for = "field in fields"
