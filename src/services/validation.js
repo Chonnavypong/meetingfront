@@ -2,7 +2,7 @@ import {
   extend
 } from 'vee-validate'
 
-// ตัวอย่างทดลองทำ 
+// ตัวอย่างทดลองทำ
 extend('positive', {
   validate: value => {
     return value % 2 !== 0
