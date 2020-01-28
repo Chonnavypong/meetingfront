@@ -18,6 +18,7 @@
                   :persist="true"
                 >
                   <div class="control" :class="classes">
+                    <!-- <span class="input-group-addon"><i class=field.icon></span> -->
                     <label>{{ field.lable }}</label>
                     <input
                       v-model.trim="field.value"
@@ -77,7 +78,7 @@ export default {
     ValidationProvider,
     ValidationObserver
   },
-  props: ["imgUrl", "title", "fields", "redirect", "urlEndPoint"],
+  props: ["imgUrl", "title", "fields", "redirect", "urlEndPoint", "icon"],
   methods: {
     onSubmit() {
       this.$refs.observer

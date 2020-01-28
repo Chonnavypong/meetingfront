@@ -1,6 +1,6 @@
 <template>
   <div id="test">
-    <Form 
+    <InputForm 
       :imgUrl="form.imgUrl" 
       :title="form.title" 
       :fields="fields" 
@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import Form from "./../components/form/Form";
+import InputForm from "./../components/form/InputForm";
 import { Validator, extend } from "vee-validate";
 
 export default {
@@ -90,7 +90,7 @@ export default {
     };
   },
   components: {
-    Form
+    InputForm
   }
 };
 </script>
