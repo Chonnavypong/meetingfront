@@ -1,17 +1,17 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-  
+  <div id="home">
+    <div class="container">
+      <h1 style="text-align: center; color:red"> HOME PAGE </h1>
+    </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-
 export default {
-  name: 'home',
-  components: {
 
-  }
 }
 </script>
+
+<style>
+
+</style>

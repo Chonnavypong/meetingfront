@@ -26,17 +26,19 @@
                       :placeholder="field.placeholder"
                       class="form-control"
                     />
+                    <span> {{ field.value }}</span>
                     <span>{{ errors[0] }}</span>
                   </div>
                 </ValidationProvider>
+                <br/>
                 <div v-if="errorMessage" class="alert alert-warning">{{ errorMessage }}</div>
                 <div class="form-group buttons">
                   <button type="submit" class="btn btn-info btn-block">{{ title }}</button>
                   <button
                     type="button"
-                    @click="onRedirectToLogin"
+                    @click="onRedirectTo()"
                     class="btn btn-secondary btn-block"
-                  >{{ redirect }}</button>
+                  >{{ secondButton }}</button>
                 </div>
               </form>
             </ValidationObserver>
@@ -78,7 +80,7 @@ export default {
     ValidationProvider,
     ValidationObserver
   },
-  props: ["imgUrl", "title", "fields", "redirect", "urlEndPoint", "icon"],
+  props: ["imgUrl", "title", "fields", "secondButton", "urlEndPoint", "icon", "redirect"],
   methods: {
     onSubmit() {
       this.$refs.observer
@@ -87,17 +89,25 @@ export default {
           if (!result) {
             return false;
           }
-          for (let i = 0; i < this.fields.length; i++) {
-            this.elements[this.fields[i].key] = this.fields[i].value;
-          }
-          console.log('api/v1/'+this.urlEndPoint)
-          this.onformReset()
-          // axios
-          //   .post( 'api/v1/'+this.urlEndPoint, this.elements )
+          const allowed = ['password', 'passwordConfirm']
+          this.fields.forEach(el => {
+            if (allowed.includes(el.key)) {
+              this.elements[el.key] = el.value
+            } else {
+              this.elements[el.key] = el.value.toLowerCase()
+            }
+          })
+          console.log(this.elements)
+
+          axios
+            .post( this.urlEndPoint, this.elements )
+            .then( response => this.onformReset() ) 
+            .catch( err => console.log(err) )
         })
         .catch(err => {
-          this.errorMessage = err.response.data.message;
+          this.errorMessage = err
         })
+        // this.onformReset()
     },
     onformReset() {
       this.$refs.observer.reset()
@@ -105,10 +115,11 @@ export default {
         this.fields[i].value = ''
       }
     },
-    onRedirectToLogin() {
-      this.$router.push({ name: "login" });
+    onRedirectTo() {
+      this.$router.go(-1);
     }
   },
+
   data() {
     return {
       elements: {},
@@ -139,5 +150,8 @@ export default {
 }
 .control.valid input {
   border: 1px #68d749 solid;
+}
+h1.card-header{
+  text-align: center
 }
 </style>

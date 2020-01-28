@@ -1,17 +1,15 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
-import Register from '../views/Register'
+import Home from '../views/Home'
 import Login from '../views/Login'
-import Test from '../views//Test'
+import SignUp from '../views/SignUp'
 
 Vue.use(VueRouter)
 
 const routes = [
-  { path: '/', name: 'home', component: Home },
-  { path: '/register', name: 'register', component: Register },
+  { path: '/home', name: 'home', component: Home},
   { path: '/login', name: 'login', component: Login},
-  { path: '/test', name: 'test', component: Test}
+  { path: '/signup', name: 'signup', component: SignUp}
 ]
 
 const router = new VueRouter({
