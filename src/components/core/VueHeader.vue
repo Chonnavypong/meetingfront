@@ -25,6 +25,9 @@
           <li>
             <router-link :to="{name: 'login'}" class="nav-link">Login</router-link>
           </li>
+          <li>
+            <router-link :to="{name: 'test'}" class="nav-link">Test</router-link>
+          </li>
         </ul>
       </ul>
       <form class="form-inline my-2 my-lg-0">

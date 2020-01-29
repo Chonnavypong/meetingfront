@@ -3,13 +3,15 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home'
 import Login from '../views/Login'
 import SignUp from '../views/SignUp'
+import Test from '../views/Test'
 
 Vue.use(VueRouter)
 
 const routes = [
   { path: '/home', name: 'home', component: Home},
   { path: '/login', name: 'login', component: Login},
-  { path: '/signup', name: 'signup', component: SignUp}
+  { path: '/signup', name: 'signup', component: SignUp},
+  { path: '/test', name: 'test', component: Test}
 ]
 
 const router = new VueRouter({

@@ -5,7 +5,7 @@
       <div class="col-md-6">
         <img :src="'/img/'+imgUrl" alt="logo" class="img-logo" />
         <div class="card">
-          <h1 class="card-header">{{title}}</h1>
+          <h2 class="card-header">{{title}}</h2>
           <div class="card-body">
             <ValidationObserver ref="observer">
               <form @submit.prevent="onSubmit()">
@@ -97,7 +97,7 @@ export default {
               this.elements[el.key] = el.value.toLowerCase()
             }
           })
-          console.log(this.elements)
+          // console.log(this.elements)
 
           axios
             .post( this.urlEndPoint, this.elements )
