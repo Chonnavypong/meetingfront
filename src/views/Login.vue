@@ -4,7 +4,7 @@
       :imgUrl="form.imgUrl" 
       :title="form.title" 
       :fields="fields" 
-      :onRedirectTo="form.onRedirectTo"
+      :redirect="form.redirect"
       :secondButton="form.secondButton"
       :urlEndPoint="form.axiosPost"  
     />

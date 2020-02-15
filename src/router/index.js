@@ -7,8 +7,8 @@ import Test from '../views/Test'
 
 Vue.use(VueRouter)
 
-const routes = [
-  { path: '/home', name: 'home', component: Home},
+const routes = [{
+    path: '/home', name: 'home', component: Home},
   { path: '/login', name: 'login', component: Login},
   { path: '/signup', name: 'signup', component: SignUp},
   { path: '/test', name: 'test', component: Test}

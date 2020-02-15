@@ -7,7 +7,7 @@
     </thead>
     <tbody>
       <tr v-for="(rowData, index) in getRowData" :key="index" scope="row">
-        <th v-for="(data, ind) in rowData" :key="ind" >{{data}}</th>
+        <td v-for="(data, ind) in rowData" :key="ind" >{{data}}</td>
       </tr>
     </tbody>
   </table>
@@ -23,6 +23,7 @@ export default {
         return obj != "_id";
       }
       const headerName = headerAll.filter(headerKey);
+      headerName.push('edit', 'delete')
       return headerName;
     },
     getRowData() {

@@ -34,7 +34,7 @@ export default {
           lable: "Email",
           placeholder: "Email",
           rules: "required|email",
-          value: "user2@email.com"
+          value: ""
         },
         {
             type: "text",
@@ -43,7 +43,7 @@ export default {
             lable: "First Name",
             placeholder: "First Name",
             rules: "required",
-            value: "user2"
+            value: ""
         },
         {
             type: "text",
@@ -52,7 +52,7 @@ export default {
             lable: "Last Name",
             placeholder: "Last Name",
             rules: "",
-            value: "dddd"
+            value: ""
         },
         {
           type: "password",

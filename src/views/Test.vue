@@ -1,79 +1,68 @@
 <template>
-  <div class="container">
-      <item-table 
-    :obj="Obj"
-  />
+  <div class="container" id="test">
+      <table class="table">
+        <thead>
+          <th scope="col"> Picture </th>
+          <th scope="col"> Name </th>
+          <th scope="col"> Detail </th>
+          <th scope="col"> Edit / Delete </th>
+        </thead>
+        <tbody>
+          <tr v-for="equip in info" :key="equip._id">
+            <td>
+              <img 
+                :src="getImage(equip)" 
+                :alt="equip.photos[1]"
+                lazy-src="/img/equipment/62.jpg"
+                class="equipImg"
+                >
+            </td>
+            <td>{{equip.name}} </td>
+            <td>{{equip.detail}}</td>
+            <td class="text-right">
+              <i class="fa fa-edit text-info"></i> 
+              <i class="material-icons">restore_from_trash</i>
+            </td>
+          </tr>
+        </tbody>
+      </table>
   </div>
 </template>
 
 <script>
-import ItemTable from './../components/table/itemTable'
+import axios from 'axios'
 export default {
-  components:{
-    ItemTable
-  },
   data() {
     return {
-      Obj : [
-  {
-    _id: "AAAA",
-    Name: "Mr. A",
-    LastName: "A lastName",
-    company: "A Co, Ltd.",
-    Database: "ADB",
-    Rule: "Admin",
-    icon:"x"
-  },
-  {
-    _id: "BBBB",
-    Name: "Mr. B",
-    LastName: "B lastName",
-    company: "A Co, Ltd.",
-    Database: "ADB",
-    Rule: "user",
-    icon:""
-  },
-  {
-    _id: "CCCC",
-    Name: "Mr. C",
-    LastName: "C lastName",
-    company: "B Co, Ltd.",
-    Database: "BDB",
-    Rule: "Admin",
-    icon:""
-  },
-  {
-    _id: "DDDD",
-    Name: "Mr. D",
-    LastName: "D lastName",
-    company: "B Co, Ltd.",
-    Database: "BDB",
-    Rule: "user",
-    icon:""
-  },
-  {
-    _id: "EEEE",
-    Name: "Mr. E",
-    LastName: "E lastName",
-    company: "B Co, Ltd.",
-    Database: "BDB",
-    Rule: "manager",
-    icon:""
-  },
-  {
-    _id: "FFFF",
-    Name: "Mr. F",
-    LastName: "F lastName",
-    company: "B Co, Ltd.",
-    Database: "BDB",
-    Rule: "user",
-    icon:""
-  }
-]
+      info: null,
+      picture: null
     }
   },
+  mounted() {
+    axios
+      .get("/api/v1/equips")
+      .then(res => {
+        // res.data.data.equip.map( 
+        //   (item) => console.log(item)
+        // )
+        console.log(res.data.equip)
+        return this.info = res.data.equip
+        })
+  },
+  methods: {
+    getImage(item) {
+      return `http://127.0.0.1:3000/img/equipment/${item.photos[0]}`
+    }
+  },
+
 }
 </script>
 
 <style>
+td {
+  padding: 10px;
+}
+.equipImg {
+  height: 20%
+}
 </style>
