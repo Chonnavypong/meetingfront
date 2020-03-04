@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import InputForm from "./../components/form/InputForm";
 
 export default {
@@ -21,7 +22,7 @@ export default {
         imgUrl: "logo.svg",
         title: "Login",
         secondButton: "Cancle",
-        redirect:"home",
+        redirect:"test",
         axiosPost: "/api/v1/users/login"
       },
       fields: [
@@ -48,7 +49,15 @@ export default {
   },
   components: {
     InputForm
-  }
+  },
+  methods: {
+    getUser() {
+      console.log(res.cookies)
+    },
+    onSubmit() {
+      console.log('submit in login')
+    }
+  },
 };
 </script>
 

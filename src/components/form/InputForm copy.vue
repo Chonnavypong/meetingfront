@@ -8,7 +8,7 @@
           <h2 class="card-header">{{title}}</h2>
           <div class="card-body">
             <ValidationObserver ref="observer">
-              <form @submit.prevent="onSubmit()">
+              <form @submit.prevent="submitFunction()">
                 <ValidationProvider
                   v-for="field in fields"
                   :key="field.name"
@@ -31,7 +31,7 @@
                   </div>
                 </ValidationProvider>
                 <br/>
-                <div v-if="errorMessage" class="alert alert-warning">{{ errorMessage }}</div>
+                <!-- <div v-if="errorMessage" class="alert alert-warning">{{ errorMessage }}</div> -->
                 <div class="form-group buttons">
                   <button type="submit" class="btn btn-info btn-block">{{ title }}</button>
                   <button
@@ -51,7 +51,6 @@
 
 <script>
 import axios from 'axios'
-import {mapActions} from 'vuex'
 
 //vee-validation setup
 import {
@@ -82,75 +81,67 @@ export default {
     ValidationObserver
   },
   props: ["imgUrl", "title", "fields", "secondButton", "urlEndPoint", "icon", "redirect", "submitFunction"],
-  methods: {
-    ...mapActions(['login']),
-    onSubmit() {
-      // console.log(this.$refs.observer.fields)
-      // console.log(this.$refs.observer)
-      this.$refs.observer
-        .validate()
-        .then( async result => {
-          // console.log(`result -> ${result}`)
-          if (!result) {
-            return false;
-          }
+  // methods: {
+  //   onSubmit() {
+  //     // console.log(this.$refs.observer.fields)
+  //     // console.log(this.$refs.observer)
+  //     this.$refs.observer
+  //       .validate()
+  //       .then( async result => {
+  //         // console.log(`result -> ${result}`)
+  //         if (!result) {
+  //           return false;
+  //         }
 
-          const allowed = ['password', 'passwordConfirm']
-          this.fields.forEach(el => {
-            if (allowed.includes(el.key)) {
-              // password, passwordConfirm บันทึกตาม user กรอกมา เก็บ ใน elements Object ที่เป็น Object เปล่า ใน Data()
-              this.elements[el.key] = el.value
-              // console.log(`elements(pass) : ${el.key} ${this.elements[el.key]}`)
-            } else {
-              // fields อื่นๆ บันทึกตาม user กรอกมาแต่ทำให้เป็นตัวเล็กก่อน
-              this.elements[el.key] = el.value.toLowerCase()
-              // console.log(`elements(else) : ${el.key} ${this.elements[el.key]}`)
-            }
+  //         const allowed = ['password', 'passwordConfirm']
+  //         this.fields.forEach(el => {
+  //           if (allowed.includes(el.key)) {
+  //             // password, passwordConfirm บันทึกตาม user กรอกมา เก็บ ใน elements Object ที่เป็น Object เปล่า ใน Data()
+  //             this.elements[el.key] = el.value
+  //             // console.log(`elements(pass) : ${el.key} ${this.elements[el.key]}`)
+  //           } else {
+  //             // fields อื่นๆ บันทึกตาม user กรอกมาแต่ทำให้เป็นตัวเล็กก่อน
+  //             this.elements[el.key] = el.value.toLowerCase()
+  //             // console.log(`elements(else) : ${el.key} ${this.elements[el.key]}`)
+  //           }
              
-          })
-        })
-          // this.fields.forEach( el => console.log(`${el.key}--->${el.value}`))
+  //         })
+  //         // this.fields.forEach( el => console.log(`${el.key}--->${el.value}`))
 
-          // console.log(this.elements)
-          // let loginResult = await axios.post(this.urlEndPoint, this.elemets)
-          // console.log(loginResult)
-          .then( () => this.login(this.elements) ) 
-          .then( () => this.onformReset()) 
-          // .then( () =>  this.$router.push({name: 'test'}) )
-          .then( () =>  this.$router.push({name:'test'}) )
-          .catch( (err) => console.log('err ', err))
-          // await axios
-          //   .post( this.urlEndPoint, this.elements )
-          //   .then( response => {
-          //     console.log(`axios onSubmit -> ${response}`, response.data)
-          //     this.onformReset()
-          //     console.log(' store action -> ' + this.$store.state.user)
-          //     // this.$router.push({name: this.redirect})
-          //     }) 
-          //   .catch( err => console.log(err) )
-        // })
-        // .catch(err => {
-        //   this.errorMessage = err
-        // })
+  //         // console.log(this.elements)
+  //         // let loginResult = await axios.post(this.urlEndPoint, this.elemets)
+  //         // console.log(loginResult)
+  //         await axios
+  //           .post( this.urlEndPoint, this.elements )
+  //           .then( response => {
+  //             console.log(response)
+  //             this.onformReset()
+  //             this.$router.push({name: this.redirect})
+  //             }) 
+  //           .catch( err => console.log(err) )
+  //       })
+  //       .catch(err => {
+  //         this.errorMessage = err
+  //       })
 
-        //  this.onformReset() //ไปเรียกใน axios แทน
-    },
-    onformReset() {
-      // this.$refs.observer.reset() ถ้าไม่มี จะทำให้ fields สุดท้ายแสดง validate ไม่ผ่าน(ซึ่งเราสั่งให้ clear data)
-      this.$refs.observer.reset()
-      this.fields.forEach(el => el.value = '')
-    },
-    onRedirectTo() {
-      this.$router.go(-1);
-    }
-  },
+  //       //  this.onformReset() //ไปเรียกใน axios แทน
+  //   },
+  //   onformReset() {
+  //     // this.$refs.observer.reset() ถ้าไม่มี จะทำให้ fields สุดท้ายแสดง validate ไม่ผ่าน(ซึ่งเราสั่งให้ clear data)
+  //     this.$refs.observer.reset()
+  //     this.fields.forEach(el => el.value = '')
+  //   },
+  //   onRedirectTo() {
+  //     this.$router.go(-1);
+  //   }
+  // },
 
-  data() {
-    return {
-      elements: {},
-      errorMessage: ""
-    };
-  }
+  // data() {
+  //   return {
+  //     elements: {},
+  //     errorMessage: ""
+  //   };
+  // }
 }
 </script>
 

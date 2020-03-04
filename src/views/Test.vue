@@ -20,8 +20,7 @@
             <td>{{equip.name}} </td>
             <td>{{equip.detail}}</td>
             <td class="text-right">
-              <i class="fa fa-edit text-info"></i> 
-              <i class="material-icons">restore_from_trash</i>
+              <font-awesome-icon @click="getId()" :icon="['fas', 'trash']" />
             </td>
           </tr>
         </tbody>
@@ -42,16 +41,19 @@ export default {
     axios
       .get("/api/v1/equips")
       .then(res => {
-        // res.data.data.equip.map( 
+        // res.data.doc.equip.map( 
         //   (item) => console.log(item)
         // )
-        console.log(res.data.equip)
+        // console.log(res.data.equip)
         return this.info = res.data.equip
         })
   },
   methods: {
     getImage(item) {
       return `http://127.0.0.1:3000/img/equipment/${item.photos[0]}`
+    },
+    getId() {
+      console.log('getId Methods')
     }
   },
 
@@ -64,5 +66,8 @@ td {
 }
 .equipImg {
   height: 20%
+}
+svg.svg-inline--fa {
+  margin-right: 1rem
 }
 </style>
